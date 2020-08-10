@@ -28,7 +28,10 @@ def process_chunk_row(row, used_dims, pidx, pid_data_dict):
 	row_numpy = row.to_numpy()
 	row_used_dims_list = row_numpy[used_dims].tolist()
 	row_border = tuple(row_used_dims_list+row_used_dims_list)
-	pid = list(pidx.intersection(row_border))[0]
+	try:
+		pid = list(pidx.intersection(row_border))[0]
+	except:
+		print(row_border)
 	if pid in pid_data_dict:
 		pid_data_dict[pid].append(row_numpy.tolist())
 	else:
