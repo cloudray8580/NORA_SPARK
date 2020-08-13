@@ -5,7 +5,7 @@ import numpy as np
 
 # Test4-2: merge all the batches into 1 single partition
 def merge_parquets(parameters):
-	fs = pa.hdfs.connect('localhost',9000)
+	fs = pa.hdfs.connect()
 	batches, pids, hdfs_path = parameters
 	for pid in pids:
 		parquets = []
@@ -27,7 +27,7 @@ def merge_parquets(parameters):
 # Test4-1: write to different batches, finaly merge them
 def dump_data(parameters):
 	batch, pid_data_dict, column_names, hdfs_path = parameters
-	fs = pa.hdfs.connect('localhost',9000)
+	fs = pa.hdfs.connect()
 	for pid in list(pid_data_dict.keys()):
 		path = hdfs_path + str(batch) + '/partition_' + str(pid)+'.parquet'
 		pdf = pd.DataFrame(pid_data_dict[pid], columns=column_names)
